@@ -59,6 +59,7 @@ public class TelaMenu extends javax.swing.JFrame {
         jButton3.setText("FUNCIONÁRIO");
         jButton3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jButton3.setBorderPainted(false);
+        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton3.setFocusPainted(false);
         jButton3.setFocusable(false);
         jButton3.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -76,6 +77,7 @@ public class TelaMenu extends javax.swing.JFrame {
         jButton4.setText("CADASTRAR CLIENTE");
         jButton4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jButton4.setBorderPainted(false);
+        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton4.setFocusPainted(false);
         jButton4.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -90,6 +92,7 @@ public class TelaMenu extends javax.swing.JFrame {
         jButton5.setText("CADASTRAR ANIMAL");
         jButton5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jButton5.setBorderPainted(false);
+        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton5.setFocusPainted(false);
         jButton5.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -104,6 +107,7 @@ public class TelaMenu extends javax.swing.JFrame {
         jButton6.setText("AGENDAR SERVIÇOS");
         jButton6.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jButton6.setBorderPainted(false);
+        jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton6.setFocusPainted(false);
         jButton6.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -217,7 +221,7 @@ public class TelaMenu extends javax.swing.JFrame {
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(187, 187, 187)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 187, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
