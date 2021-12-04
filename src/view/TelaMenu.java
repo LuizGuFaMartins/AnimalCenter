@@ -3,11 +3,20 @@ import java.awt.Color;
 
 public class TelaMenu extends javax.swing.JFrame {
     
+    private static TelaMenu telaMenu;
+    
     public TelaMenu() {
         initComponents();
         setLocationRelativeTo(null);
         getContentPane().setBackground(Color.white);
         setExtendedState(MAXIMIZED_BOTH);
+    }
+    
+    public static TelaMenu getTelaMenu(){
+        if (telaMenu == null){
+            telaMenu = new TelaMenu();
+        }
+        return telaMenu;
     }
 
     /**
@@ -262,7 +271,7 @@ public class TelaMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

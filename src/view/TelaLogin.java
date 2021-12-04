@@ -13,9 +13,8 @@ import java.awt.Color;
  */
 public class TelaLogin extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaLogin
-     */
+    private static TelaLogin telaLogin;
+    
     public TelaLogin() {
         initComponents();
         setLocationRelativeTo(null);
@@ -23,6 +22,12 @@ public class TelaLogin extends javax.swing.JFrame {
         setExtendedState(MAXIMIZED_BOTH);
     }
 
+    public static TelaLogin getTelaLogin(){
+        if (telaLogin == null){
+            telaLogin = new TelaLogin();
+        }
+        return telaLogin;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -123,7 +128,8 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+         TelaMenu.getTelaMenu().setVisible(true);
+         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
