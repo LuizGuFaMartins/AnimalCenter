@@ -14,7 +14,7 @@ public class AdministradorDAO {
         PreparedStatement stmt = null;
         
         try {            
-            stmt = con.prepareStatement("INSERT INTO administrador (nome_adm, cpf_adm, senha_adm) VALUES (Luiz, 44455599987, 121314)");
+            stmt = con.prepareStatement("INSERT INTO administrador (nome_adm, cpf_adm, senha_adm) VALUES (?, ?, ?)");
             stmt.setString(1, adm.getNome_adm());
             stmt.setString(2, adm.getCpf_adm());
             stmt.setString(3, adm.getSenha_adm());

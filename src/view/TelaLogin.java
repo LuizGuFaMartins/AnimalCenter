@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import java.awt.Color;
 
-/**
- *
- * @author User
- */
 public class TelaLogin extends javax.swing.JFrame {
 
     private static TelaLogin telaLogin;
@@ -45,7 +36,7 @@ public class TelaLogin extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         campoId.setBackground(new java.awt.Color(196, 196, 196));
         campoId.setSelectionColor(new java.awt.Color(255, 255, 255));

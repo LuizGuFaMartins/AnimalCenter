@@ -7,7 +7,7 @@ public class Animal {
     private String nome_ani;
     private String raca_ani;
     private String porte_ani;
-    private Date dataNasc_ani;
+    private String dataNasc_ani;
     private String idade_ani;
     private String Cliente_cpf;
 
@@ -43,11 +43,11 @@ public class Animal {
         this.porte_ani = porte_ani;
     }
 
-    public Date getDataNasc_ani() {
+    public String getDataNasc_ani() {
         return dataNasc_ani;
     }
 
-    public void setDataNasc_ani(Date dataNasc_ani) {
+    public void setDataNasc_ani(String dataNasc_ani) {
         this.dataNasc_ani = dataNasc_ani;
     }
 

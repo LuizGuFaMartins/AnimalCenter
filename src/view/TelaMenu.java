@@ -1,5 +1,6 @@
 package view;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 public class TelaMenu extends javax.swing.JFrame {
     
@@ -42,7 +43,7 @@ public class TelaMenu extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1366, 768));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo_menor.png"))); // NOI18N
@@ -247,31 +248,30 @@ public class TelaMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        jButton3.setFocusPainted(false);
-        jButton3.setFocusable(false);
-        jButton3.setBorder(null);        
+        TelaFuncionario.getTelafuncionario().setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        jButton4.setFocusPainted(false);  
-        jButton4.setFocusable(false);
-        jButton4.setBorder(null);
+        TelaCliente.getTelaCliente().setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        jButton5.setFocusPainted(false);
-        jButton5.setFocusable(false);
-        jButton5.setBorder(null);
+        TelaAnimal.getTelaAnimal().setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        jButton6.setFocusPainted(false);
-        jButton6.setFocusable(false);
-        jButton6.setBorder(null);
+        TelaAgendamento.getTelaAgendamento().setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        dispose();
+        int sair = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja sair?", "Aviso", 1);
+        if (sair == 0){
+            dispose();
+        }   
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
