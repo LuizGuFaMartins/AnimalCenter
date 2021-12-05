@@ -1,6 +1,7 @@
 package model.bean;
 
 public class Cliente {
+    private int id_cli;    
     private String cpf_cli;
     private String nome_cli;
     private String tel_cli;
@@ -10,6 +11,14 @@ public class Cliente {
     private String logradouro_cli;
     private String bairro_cli;
 
+    public int getId_cli() {
+        return id_cli;
+    }
+
+    public void setId_cli(int id_cli) {
+        this.id_cli = id_cli;
+    }
+    
     public String getCpf_cli() {
         return cpf_cli;
     }

@@ -1,28 +1,32 @@
 package model.dao;
 
 import connection.ConnectionFactory;
-/*import java.awt.List;*/
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-import model.bean.Funcionario;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.sql.*;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import model.bean.Cliente;
 
-public class FuncionarioDAO {
-    
-    public void Create(Funcionario fun){        
+public class ClienteDAO {
+    public void Create(Cliente fun){        
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("INSERT INTO funcionario (nome_fun, cpf_func, cargo_fun, senha_fun, Administrador_id_adm) VALUES (?, ?, ?, ?, ?)");
-            stmt.setString(1, fun.getNome_func());
-            stmt.setString(2, fun.getCpf_func());
-            stmt.setString(3, fun.getCargo_func());
-            stmt.setString(4, fun.getSenha_func());
-            stmt.setInt(5, fun.getId_adm());
+            stmt = con.prepareStatement("INSERT INTO cliente (cpf_cli, nome_cli, tel_cli, cep_cli, estado_cli, cidade_cli, logradouro_cli, bairro) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            stmt.setString(1, fun.getCpf_cli());
+            stmt.setString(2, fun.getNome_cli());
+            stmt.setString(3, fun.getTel_cli());
+            stmt.setString(4, fun.getCep_cli());
+            stmt.setString(5, fun.getEstado_cli());
+            stmt.setString(6, fun.getCidade_cli());
+            stmt.setString(7, fun.getLogradouro_cli());
+            stmt.setString(8, fun.getBairro_cli());            
             
             stmt.executeUpdate();
             
@@ -38,17 +42,21 @@ public class FuncionarioDAO {
         } 
     }
     
-    public void Update(Funcionario fun){        
+    public void Update(Cliente fun){        
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("UPDATE funcionario SET nome_fun = ?, cpf_func = ?, cargo_fun = ?, senha_fun = ? WHERE id_fun = ?");
-            stmt.setString(1, fun.getNome_func());
-            stmt.setString(2, fun.getCpf_func());
-            stmt.setString(3, fun.getCargo_func());
-            stmt.setString(4, fun.getSenha_func());
-            stmt.setInt(5, fun.getId_func());
+            stmt = con.prepareStatement("UPDATE cliente SET cpf_cli = ?, nome_cli = ?, tel_cli = ?, cep_cli = ?, estado_cli = ?, cidade_cli = ?, logradouro_cli = ?, bairro = ? WHERE id_cli = ?");
+            stmt.setString(1, fun.getCpf_cli());
+            stmt.setString(2, fun.getNome_cli());
+            stmt.setString(3, fun.getTel_cli());
+            stmt.setString(4, fun.getCep_cli());
+            stmt.setString(5, fun.getEstado_cli());
+            stmt.setString(6, fun.getCidade_cli());
+            stmt.setString(7, fun.getLogradouro_cli());
+            stmt.setString(8, fun.getBairro_cli());
+            stmt.setInt(9, fun.getId_cli());
             
             stmt.executeUpdate();
             
@@ -69,21 +77,24 @@ public class FuncionarioDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;        
        
-        List<Funcionario> funcionarios = new ArrayList<>();
+        List<Cliente> funcionarios = new ArrayList<>();
         
         try {           
-            stmt = con.prepareStatement("SELECT * FROM funcionario"); 
+            stmt = con.prepareStatement("SELECT * FROM cliente"); 
             rs = stmt.executeQuery();
             
             while(rs.next()){
-                Funcionario func = new Funcionario(); 
+                Cliente func = new Cliente(); 
                 
-                func.setId_func(rs.getInt("id_fun"));
-                func.setNome_func(rs.getString("nome_fun"));
-                func.setCpf_func(rs.getString("cpf_func"));
-                func.setCargo_func(rs.getString("cargo_fun"));
-                func.setSenha_func(rs.getString("senha_fun"));
-                func.setId_adm(rs.getInt("Administrador_id_adm"));
+                func.setId_cli(rs.getInt("id_cli"));
+                func.setCpf_cli(rs.getString("cpf_cli"));
+                func.setNome_cli(rs.getString("nome_cli"));
+                func.setTel_cli(rs.getString("tel_cli"));
+                func.setCep_cli(rs.getString("cep_cli"));
+                func.setEstado_cli(rs.getString("estado_cli"));
+                func.setCidade_cli(rs.getString("cidade_cli"));
+                func.setLogradouro_cli(rs.getString("logradouro_cli"));
+                func.setBairro_cli(rs.getString("bairro"));
                 
                 funcionarios.add(func);
                 
@@ -103,22 +114,25 @@ public class FuncionarioDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;        
        
-        List<Funcionario> funcionarios = new ArrayList<>();
+        List<Cliente> funcionarios = new ArrayList<>();
         
         try {           
-            stmt = con.prepareStatement("SELECT * FROM funcionario WHERE nome_fun LIKE ?"); 
+            stmt = con.prepareStatement("SELECT * FROM cliente WHERE nome_cli LIKE ?"); 
             stmt.setString(1, "%"+nome+"%");
             rs = stmt.executeQuery();
             
             while(rs.next()){
-                Funcionario func = new Funcionario(); 
+                Cliente func = new Cliente(); 
                 
-                func.setId_func(rs.getInt("id_fun"));
-                func.setNome_func(rs.getString("nome_fun"));
-                func.setCpf_func(rs.getString("cpf_func"));
-                func.setCargo_func(rs.getString("cargo_fun"));
-                func.setSenha_func(rs.getString("senha_fun"));
-                func.setId_adm(rs.getInt("Administrador_id_adm"));
+                func.setId_cli(rs.getInt("id_cli"));
+                func.setCpf_cli(rs.getString("cpf_cli"));
+                func.setNome_cli(rs.getString("nome_cli"));
+                func.setTel_cli(rs.getString("tel_cli"));
+                func.setCep_cli(rs.getString("cep_cli"));
+                func.setEstado_cli(rs.getString("estado_cli"));
+                func.setCidade_cli(rs.getString("cidade_cli"));
+                func.setLogradouro_cli(rs.getString("logradouro_cli"));
+                func.setBairro_cli(rs.getString("bairro"));
                 
                 funcionarios.add(func);
                 
@@ -137,22 +151,25 @@ public class FuncionarioDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;        
        
-        List<Funcionario> funcionarios = new ArrayList<>();
+        List<Cliente> funcionarios = new ArrayList<>();
         
         try {           
-            stmt = con.prepareStatement("SELECT * FROM funcionario WHERE id_fun = ?"); 
+            stmt = con.prepareStatement("SELECT * FROM cliente WHERE id_cli = ?"); 
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
             
             while(rs.next()){
-                Funcionario func = new Funcionario(); 
+                Cliente func = new Cliente(); 
                 
-                func.setId_func(rs.getInt("id_fun"));
-                func.setNome_func(rs.getString("nome_fun"));
-                func.setCpf_func(rs.getString("cpf_func"));
-                func.setCargo_func(rs.getString("cargo_fun"));
-                func.setSenha_func(rs.getString("senha_fun"));
-                func.setId_adm(rs.getInt("Administrador_id_adm"));
+                func.setId_cli(rs.getInt("id_cli"));
+                func.setCpf_cli(rs.getString("cpf_cli"));
+                func.setNome_cli(rs.getString("nome_cli"));
+                func.setTel_cli(rs.getString("tel_cli"));
+                func.setCep_cli(rs.getString("cep_cli"));
+                func.setEstado_cli(rs.getString("estado_cli"));
+                func.setCidade_cli(rs.getString("cidade_cli"));
+                func.setLogradouro_cli(rs.getString("logradouro_cli"));
+                func.setBairro_cli(rs.getString("bairro"));
                 
                 funcionarios.add(func);
                 
@@ -167,13 +184,13 @@ public class FuncionarioDAO {
         return funcionarios;
     }
     
-    public void delete(Funcionario fun){        
+    public void delete(Cliente fun){        
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("DELETE FROM funcionario WHERE id_fun = ?");
-            stmt.setInt(1, fun.getId_func());
+            stmt = con.prepareStatement("DELETE FROM cliente WHERE id_cli = ?");
+            stmt.setInt(1, fun.getId_cli());
             
             stmt.executeUpdate();
             

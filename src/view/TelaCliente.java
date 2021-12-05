@@ -3,6 +3,9 @@ package view;
 import java.awt.Color;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.bean.Cliente;
+import model.dao.ClienteDAO;
 
 public class TelaCliente extends javax.swing.JFrame {
 
@@ -13,6 +16,8 @@ public class TelaCliente extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         getContentPane().setBackground(Color.white);
         setExtendedState(MAXIMIZED_BOTH);
+        
+        readJTable();
     }
 
     public static TelaCliente getTelaCliente(){
@@ -20,6 +25,81 @@ public class TelaCliente extends javax.swing.JFrame {
             telaCliente = new TelaCliente();
         }
         return telaCliente;
+    }
+    
+    public void readJTable(){
+        DefaultTableModel modelo = (DefaultTableModel) tabelaCli.getModel();
+        modelo.setNumRows(0);
+        ClienteDAO fdao = new ClienteDAO();
+        
+        for(Cliente f: fdao.read()){
+            modelo.addRow(new Object[]{
+                f.getId_cli(),
+                f.getCpf_cli(),
+                f.getNome_cli(),
+                f.getTel_cli(),
+                f.getCep_cli(),
+                f.getEstado_cli(),
+                f.getCidade_cli(),
+                f.getLogradouro_cli(),
+                f.getBairro_cli()
+            });
+        }
+    }    
+     public void readJTableForNome(String nome){
+        DefaultTableModel modelo = (DefaultTableModel) tabelaCli.getModel();
+        modelo.setNumRows(0);
+        ClienteDAO fdao = new ClienteDAO();
+        
+        for(Cliente f: fdao.readNome(nome)){
+            modelo.addRow(new Object[]{
+                f.getId_cli(),
+                f.getCpf_cli(),
+                f.getNome_cli(),
+                f.getTel_cli(),
+                f.getCep_cli(),
+                f.getEstado_cli(),
+                f.getCidade_cli(),
+                f.getLogradouro_cli(),
+                f.getBairro_cli()
+            });
+        }
+    }    
+     public int readJTableForId(int id){
+        
+       DefaultTableModel modelo = (DefaultTableModel) tabelaCli.getModel();
+        modelo.setNumRows(0);
+        ClienteDAO fdao = new ClienteDAO();
+        int i=0;
+        
+        for(Cliente f: fdao.readID(id)){
+            modelo.addRow(new Object[]{
+                f.getId_cli(),
+                f.getCpf_cli(),
+                f.getNome_cli(),
+                f.getTel_cli(),
+                f.getCep_cli(),
+                f.getEstado_cli(),
+                f.getCidade_cli(),
+                f.getLogradouro_cli(),
+                f.getBairro_cli()
+            });
+            i++;
+        }
+        
+        return i;
+    }  
+     
+    public void limparCampos(){
+        campoID.setText("");
+        campoCPF.setText("");
+        campoNome.setText("");
+        campoTel.setText("");        
+        CampoCep.setText("");
+        campoEsta.setText("");
+        campoCida.setText("");
+        campoLogr.setText("");
+        campoBairro.setText("");
     }
     
     @SuppressWarnings("unchecked")
@@ -32,29 +112,34 @@ public class TelaCliente extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
-        jTextField2 = new javax.swing.JTextField();
+        campoCPF = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        campoNome = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        campoTel = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        CampoCep = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        campoLogr = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        campoCida = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        campoEsta = new javax.swing.JTextField();
+        jButton8 = new javax.swing.JButton();
+        btnCadastrar = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        campoID = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        campoBairro = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
-        jTextField8 = new javax.swing.JTextField();
+        campoNomeClienteBusca = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jToggleButton3 = new javax.swing.JToggleButton();
-        jToggleButton4 = new javax.swing.JToggleButton();
-        jToggleButton2 = new javax.swing.JToggleButton();
+        tabelaCli = new javax.swing.JTable();
+        jButton7 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -116,144 +201,226 @@ public class TelaCliente extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("Estado:");
 
-        jToggleButton1.setBackground(new java.awt.Color(204, 204, 204));
-        jToggleButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jToggleButton1.setText("Salvar");
+        jButton8.setBackground(new java.awt.Color(118, 135, 232));
+        jButton8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton8.setText("Limpar");
+        jButton8.setBorderPainted(false);
+        jButton8.setFocusPainted(false);
+        jButton8.setFocusable(false);
+        jButton8.setVerifyInputWhenFocusTarget(false);
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
+        btnCadastrar.setBackground(new java.awt.Color(118, 135, 232));
+        btnCadastrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCadastrar.setText("Cadastrar");
+        btnCadastrar.setBorderPainted(false);
+        btnCadastrar.setFocusPainted(false);
+        btnCadastrar.setFocusable(false);
+        btnCadastrar.setVerifyInputWhenFocusTarget(false);
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarActionPerformed(evt);
+            }
+        });
+
+        jButton6.setBackground(new java.awt.Color(118, 135, 232));
+        jButton6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton6.setText("Atualizar");
+        jButton6.setBorderPainted(false);
+        jButton6.setFocusPainted(false);
+        jButton6.setFocusable(false);
+        jButton6.setVerifyInputWhenFocusTarget(false);
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel11.setText("ID:");
+
+        campoID.setEditable(false);
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel12.setText("Bairro:");
+
+        campoBairro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoBairroActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 418, Short.MAX_VALUE)
+                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(149, 149, 149)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(161, 161, 161)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
+                        .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(campoID, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(34, 34, 34)
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField7))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField5))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField4)
-                            .addComponent(jTextField1)))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(campoEsta, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(campoCida, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(campoBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel2))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel2)))
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
-                            .addComponent(jTextField3))))
-                .addContainerGap(188, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jToggleButton1)
-                .addGap(33, 33, 33))
+                            .addComponent(campoCPF)
+                            .addComponent(CampoCep)
+                            .addComponent(campoTel)
+                            .addComponent(campoNome)
+                            .addComponent(campoLogr, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(70, 70, 70)
+                .addGap(25, 25, 25)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campoID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                    .addComponent(campoCPF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campoNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoTel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(CampoCep, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                    .addComponent(campoLogr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campoCida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
+                    .addComponent(campoEsta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(campoBairro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(370, 370, 370))
         );
 
         jTabbedPane1.addTab("Cadastrar cliente", jPanel3);
 
         jPanel4.setBackground(new java.awt.Color(171, 189, 252));
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel10.setText("CPF:");
+        campoNomeClienteBusca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoNomeClienteBuscaActionPerformed(evt);
+            }
+        });
 
-        jTable1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel10.setText("Nome:");
+
+        tabelaCli.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tabelaCli.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "ID", "Nome", "Telefone", "Cep", "Logradouro", "Cidade", "Estado"
+                "ID", "CPF", "Nome", "Telefone", "Cep", "Logradouro", "Cidade", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
-        });
-        jScrollPane1.setViewportView(jTable1);
 
-        jToggleButton3.setBackground(new java.awt.Color(204, 204, 255));
-        jToggleButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jToggleButton3.setText("Cadastrar");
-        jToggleButton3.addActionListener(new java.awt.event.ActionListener() {
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelaCli.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaCliMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabelaCli);
+
+        jButton7.setBackground(new java.awt.Color(255, 184, 5));
+        jButton7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton7.setText("Excluir");
+        jButton7.setBorderPainted(false);
+        jButton7.setFocusPainted(false);
+        jButton7.setFocusable(false);
+        jButton7.setVerifyInputWhenFocusTarget(false);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton3ActionPerformed(evt);
+                jButton7ActionPerformed(evt);
             }
         });
 
-        jToggleButton4.setBackground(new java.awt.Color(204, 102, 0));
-        jToggleButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jToggleButton4.setText("Editar");
-        jToggleButton4.addActionListener(new java.awt.event.ActionListener() {
+        jButton4.setBackground(new java.awt.Color(255, 184, 5));
+        jButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton4.setText("Buscar");
+        jButton4.setBorderPainted(false);
+        jButton4.setFocusPainted(false);
+        jButton4.setFocusable(false);
+        jButton4.setVerifyInputWhenFocusTarget(false);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton4ActionPerformed(evt);
-            }
-        });
-
-        jToggleButton2.setBackground(new java.awt.Color(204, 204, 204));
-        jToggleButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jToggleButton2.setText("Salvar");
-        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton2ActionPerformed(evt);
+                jButton4ActionPerformed(evt);
             }
         });
 
@@ -261,41 +428,38 @@ public class TelaCliente extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 793, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addComponent(jToggleButton3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jToggleButton4)
-                        .addGap(18, 18, 18)
-                        .addComponent(jToggleButton2))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(115, 115, 115)))
-                .addGap(102, 102, 102))
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 725, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(campoNomeClienteBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(122, 122, 122))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(58, 58, 58))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel10)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(73, 73, 73))
+                    .addComponent(campoNomeClienteBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
+                .addGap(31, 31, 31)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37))
         );
 
         jTabbedPane1.addTab("Buscar cliente", jPanel4);
@@ -373,17 +537,114 @@ public class TelaCliente extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton3ActionPerformed
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        limparCampos();
+    }//GEN-LAST:event_jButton8ActionPerformed
 
-    private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton4ActionPerformed
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        if("".equals(campoCPF.getText()) || "".equals(campoNome.getText()) || "".equals(CampoCep.getText()) || "".equals(campoTel.getText()) || "".equals(campoEsta.getText()) || "".equals(campoCida.getText()) || "".equals(campoLogr.getText())  || "".equals(campoBairro.getText())){
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos para cadastrar...");
+        }else if(!("".equals(campoID.getText()))){
+            if(readJTableForId(Integer.parseInt(campoID.getText())) > 0){
+                JOptionPane.showMessageDialog(null, "Funcionário já cadastrado...");
+            }
+        }else{
+            Cliente func = new Cliente();
+            ClienteDAO dao = new ClienteDAO();
 
-    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
+            try{                
+                func.setCpf_cli(campoCPF.getText());
+                func.setNome_cli(campoNome.getText());
+                func.setTel_cli(campoTel.getText());
+                func.setCep_cli(CampoCep.getText());
+                func.setEstado_cli(campoEsta.getText());
+                func.setCidade_cli(campoCida.getText());
+                func.setLogradouro_cli(campoLogr.getText());
+                func.setBairro_cli(campoBairro.getText());               
+                
+                dao.Create(func);
+                readJTable();
+                limparCampos();
+                
+            }catch (NumberFormatException num){
+                JOptionPane.showMessageDialog(null, "Erro ao salvar!");
+            }
+        }  
+    }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        if(tabelaCli.getSelectedRow() != -1){
+            Cliente func = new Cliente();
+            ClienteDAO dao = new ClienteDAO();
+            
+            func.setId_cli((int)tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 0));
+            func.setCpf_cli(campoCPF.getText());
+            func.setNome_cli(campoNome.getText());
+            func.setTel_cli(campoTel.getText());
+            func.setCep_cli(CampoCep.getText());
+            func.setEstado_cli(campoEsta.getText());
+            func.setCidade_cli(campoCida.getText());
+            func.setLogradouro_cli(campoLogr.getText());
+            func.setBairro_cli(campoBairro.getText());
+
+            dao.Update(func);
+            readJTable();
+            limparCampos();
+        }else {
+            JOptionPane.showMessageDialog(null, "Selecione uma linha da tabela para atualizar");
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+
+        if(tabelaCli.getSelectedRow() != -1){
+            int sair = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir?", "Aviso", 1);
+            if (sair == 0){
+                if(tabelaCli.getSelectedRow() != -1){
+                    Cliente fun = new Cliente();
+                    ClienteDAO dao = new ClienteDAO();
+
+                    fun.setId_cli((int)tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 0));
+
+                    dao.delete(fun);
+                    readJTable();
+                    limparCampos();
+                }
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Selecione uma linha da tabela para excluir");
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+
+        readJTableForNome(campoNomeClienteBusca.getText()); 
+
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void campoBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoBairroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton2ActionPerformed
+    }//GEN-LAST:event_campoBairroActionPerformed
+
+    private void tabelaCliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaCliMouseClicked
+        
+        if (tabelaCli.getSelectedRow() != -1){
+            campoID.setText(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 0).toString());            
+            campoCPF.setText(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 2).toString()); 
+            campoNome.setText(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 1).toString());
+            campoTel.setText(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 3).toString());                     
+            CampoCep.setText(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 4).toString());
+            campoEsta.setText(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 5).toString());
+            campoCida.setText(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 1).toString());
+            campoLogr.setText(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 1).toString());
+            campoBairro.setText(tabelaCli.getValueAt(tabelaCli.getSelectedRow(), 1).toString());
+        }
+        
+    }//GEN-LAST:event_tabelaCliMouseClicked
+
+    private void campoNomeClienteBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNomeClienteBuscaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoNomeClienteBuscaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -422,10 +683,27 @@ public class TelaCliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField CampoCep;
+    private javax.swing.JButton btnCadastrar;
+    private javax.swing.JTextField campoBairro;
+    private javax.swing.JTextField campoCPF;
+    private javax.swing.JTextField campoCida;
+    private javax.swing.JTextField campoEsta;
+    private javax.swing.JTextField campoID;
+    private javax.swing.JTextField campoLogr;
+    private javax.swing.JTextField campoNome;
+    private javax.swing.JTextField campoNomeClienteBusca;
+    private javax.swing.JTextField campoTel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -439,18 +717,6 @@ public class TelaCliente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JToggleButton jToggleButton2;
-    private javax.swing.JToggleButton jToggleButton3;
-    private javax.swing.JToggleButton jToggleButton4;
+    private javax.swing.JTable tabelaCli;
     // End of variables declaration//GEN-END:variables
 }
