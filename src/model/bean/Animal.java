@@ -9,7 +9,7 @@ public class Animal {
     private String porte_ani;
     private String dataNasc_ani;
     private String idade_ani;
-    private String Cliente_cpf;
+    private int Cliente_id;
 
     public int getId_ani() {
         return id_ani;
@@ -59,12 +59,12 @@ public class Animal {
         this.idade_ani = idade_ani;
     }
 
-    public String getCliente_cpf() {
-        return Cliente_cpf;
+    public int getCliente_id() {
+        return Cliente_id;
     }
 
-    public void setCliente_cpf(String Cliente_cpf) {
-        this.Cliente_cpf = Cliente_cpf;
+    public void setCliente_id(int Cliente_id) {
+        this.Cliente_id = Cliente_id;
     }
 
 }
