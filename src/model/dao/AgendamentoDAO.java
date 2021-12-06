@@ -10,21 +10,19 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import model.bean.Animal;
+import model.bean.Agendamento;
 
-public class AnimalDAO {
-    public void Create(Animal fun){        
+public class AgendamentoDAO {
+    public void Create(Agendamento fun){        
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("INSERT INTO animal (nome_ani, raca_ani, porte_ani, dataNasc_ani, idade_ani, Cliente_id_cli) VALUES (?, ?, ?, ?, ?, ?)");
-            stmt.setString(1, fun.getNome_ani());
-            stmt.setString(2, fun.getRaca_ani());
-            stmt.setString(3, fun.getPorte_ani());
-            stmt.setString(4, fun.getDataNasc_ani());
-            stmt.setString(5, fun.getIdade_ani());
-            stmt.setInt(6, fun.getCliente_id());
+            stmt = con.prepareStatement("INSERT INTO agendamento (Animal_id_ani, servico_age, data_age, Funcionario_id_fun) VALUES (?, ?, ?, ?)");
+            stmt.setInt(1, fun.getId_animal());
+            stmt.setString(2, fun.getServico_age());
+            stmt.setString(3, fun.getData_age());
+            stmt.setInt(4, fun.getId_func_age());
             
             stmt.executeUpdate();
             
@@ -40,18 +38,15 @@ public class AnimalDAO {
         } 
     }
     
-    public void Update(Animal fun){        
+    public void Update(Agendamento fun){        
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("UPDATE animal SET nome_ani = ?, raca_ani = ?, porte_ani = ?, dataNasc_ani = ?, idade_ani = ? WHERE id_ani = ?");
-            stmt.setString(1, fun.getNome_ani());
-            stmt.setString(2, fun.getRaca_ani());
-            stmt.setString(3, fun.getPorte_ani());
-            stmt.setString(4, fun.getDataNasc_ani());
-            stmt.setString(5, fun.getIdade_ani());            
-            stmt.setInt(6, fun.getId_ani());
+            stmt = con.prepareStatement("UPDATE agendamento SET servico_age = ?, data_age = ? WHERE id_age = ?");
+            stmt.setString(1, fun.getServico_age());
+            stmt.setString(2, fun.getData_age());
+            stmt.setInt(3, fun.getId_age());          
             
             stmt.executeUpdate();
             
@@ -72,22 +67,20 @@ public class AnimalDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;        
        
-        List<Animal> funcionarios = new ArrayList<>();
+        List<Agendamento> funcionarios = new ArrayList<>();
         
         try {           
-            stmt = con.prepareStatement("SELECT * FROM animal"); 
+            stmt = con.prepareStatement("SELECT * FROM agendamento"); 
             rs = stmt.executeQuery();
             
             while(rs.next()){
-                Animal func = new Animal(); 
-                                
-                func.setId_ani(rs.getInt("id_ani"));
-                func.setNome_ani(rs.getString("nome_ani"));
-                func.setRaca_ani(rs.getString("raca_ani"));
-                func.setPorte_ani(rs.getString("porte_ani"));
-                func.setDataNasc_ani(rs.getString("dataNasc_ani"));
-                func.setIdade_ani(rs.getString("idade_ani"));
-                func.setCliente_id(rs.getInt("Cliente_id_cli"));
+                Agendamento func = new Agendamento(); 
+                
+                func.setId_age(rs.getInt("id_age"));
+                func.setId_animal(rs.getInt("Animal_id_ani"));
+                func.setServico_age(rs.getString("servico_age"));
+                func.setData_age(rs.getString("data_age"));
+                func.setId_func_age(rs.getInt("Funcionario_id_fun"));                
                 
                 funcionarios.add(func);
                 
@@ -102,29 +95,28 @@ public class AnimalDAO {
         return funcionarios;
     }
     
-    public List readNome(String nome){
+    /*public List readNome(String nome){
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;        
        
-        List<Animal> funcionarios = new ArrayList<>();
+        List<Agendamento> funcionarios = new ArrayList<>();
         
         try {           
-            stmt = con.prepareStatement("SELECT * FROM animal WHERE nome_fun LIKE ?"); 
+            stmt = con.prepareStatement("SELECT * FROM agendamento WHERE nome_fun LIKE ?"); 
             stmt.setString(1, "%"+nome+"%");
             rs = stmt.executeQuery();
             
             while(rs.next()){
-                Animal func = new Animal(); 
+                Agendamento func = new Agendamento(); 
                 
-                func.setId_ani(rs.getInt("id_ani"));
-                func.setNome_ani(rs.getString("nome_ani"));
-                func.setRaca_ani(rs.getString("raca_ani"));
-                func.setPorte_ani(rs.getString("porte_ani"));
-                func.setDataNasc_ani(rs.getString("dataNasc_ani"));
-                func.setIdade_ani(rs.getString("idade_ani"));
-                func.setCliente_id(rs.getInt("Cliente_id_cli"));
-                                
+                func.setId_func(rs.getInt("id_fun"));
+                func.setNome_func(rs.getString("nome_fun"));
+                func.setCpf_func(rs.getString("cpf_func"));
+                func.setCargo_func(rs.getString("cargo_fun"));
+                func.setSenha_func(rs.getString("senha_fun"));
+                func.setId_adm(rs.getInt("Administrador_id_adm"));
+                
                 funcionarios.add(func);
                 
             }
@@ -136,30 +128,28 @@ public class AnimalDAO {
         }
         
         return funcionarios;
-    }
+    }*/
     public List readID(int id){
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;        
        
-        List<Animal> funcionarios = new ArrayList<>();
+        List<Agendamento> funcionarios = new ArrayList<>();
         
         try {           
-            stmt = con.prepareStatement("SELECT * FROM animal WHERE id_ani = ?"); 
+            stmt = con.prepareStatement("SELECT * FROM agendamento WHERE id_age = ?"); 
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
             
             while(rs.next()){
-                Animal func = new Animal(); 
+                Agendamento func = new Agendamento(); 
                 
-                func.setId_ani(rs.getInt("id_ani"));
-                func.setNome_ani(rs.getString("nome_ani"));
-                func.setRaca_ani(rs.getString("raca_ani"));
-                func.setPorte_ani(rs.getString("porte_ani"));
-                func.setDataNasc_ani(rs.getString("dataNasc_ani"));
-                func.setIdade_ani(rs.getString("idade_ani"));
-                func.setCliente_id(rs.getInt("Cliente_id_cli"));
-                                
+                func.setId_age(rs.getInt("id_age"));
+                func.setId_animal(rs.getInt("Animal_id_ani"));
+                func.setServico_age(rs.getString("servico_age"));
+                func.setData_age(rs.getString("data_age"));
+                func.setId_func_age(rs.getInt("Funcionario_id_fun"));  
+                
                 funcionarios.add(func);
                 
             }
@@ -172,29 +162,27 @@ public class AnimalDAO {
         
         return funcionarios;
     }
-    public List readIDCliente(int id){
+    public List readIdAnimal(int id){
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;        
        
-        List<Animal> funcionarios = new ArrayList<>();
+        List<Agendamento> funcionarios = new ArrayList<>();
         
         try {           
-            stmt = con.prepareStatement("SELECT * FROM animal WHERE Cliente_id_cli = ?"); 
+            stmt = con.prepareStatement("SELECT * FROM agendamento WHERE Animal_id_ani = ?"); 
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
             
             while(rs.next()){
-                Animal func = new Animal(); 
+                Agendamento func = new Agendamento(); 
                 
-                func.setId_ani(rs.getInt("id_ani"));
-                func.setNome_ani(rs.getString("nome_ani"));
-                func.setRaca_ani(rs.getString("raca_ani"));
-                func.setPorte_ani(rs.getString("porte_ani"));
-                func.setDataNasc_ani(rs.getString("dataNasc_ani"));
-                func.setIdade_ani(rs.getString("idade_ani"));
-                func.setCliente_id(rs.getInt("Cliente_id_cli"));
-                                
+                func.setId_age(rs.getInt("id_age"));
+                func.setId_animal(rs.getInt("Animal_id_ani"));
+                func.setServico_age(rs.getString("servico_age"));
+                func.setData_age(rs.getString("data_age"));
+                func.setId_func_age(rs.getInt("Funcionario_id_fun"));  
+                
                 funcionarios.add(func);
                 
             }
@@ -208,13 +196,13 @@ public class AnimalDAO {
         return funcionarios;
     }
     
-    public void delete(Animal fun){        
+    public void delete(Agendamento fun){        
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("DELETE FROM animal WHERE id_ani = ?");
-            stmt.setInt(1, fun.getId_ani());
+            stmt = con.prepareStatement("DELETE FROM agendamento WHERE id_age = ?");
+            stmt.setInt(1, fun.getId_age());
             
             stmt.executeUpdate();
             
