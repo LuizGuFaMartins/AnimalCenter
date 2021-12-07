@@ -162,7 +162,7 @@ public class AgendamentoDAO {
         
         return funcionarios;
     }
-    public List readIdAnimal(int id){
+    public List readData(String data){
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;        
@@ -170,8 +170,8 @@ public class AgendamentoDAO {
         List<Agendamento> funcionarios = new ArrayList<>();
         
         try {           
-            stmt = con.prepareStatement("SELECT * FROM agendamento WHERE Animal_id_ani = ?"); 
-            stmt.setInt(1, id);
+            stmt = con.prepareStatement("SELECT * FROM agendamento WHERE data_age = ?"); 
+            stmt.setString(1, data);
             rs = stmt.executeQuery();
             
             while(rs.next()){
