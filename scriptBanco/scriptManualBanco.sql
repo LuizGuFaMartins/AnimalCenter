@@ -23,11 +23,11 @@ CREATE TABLE IF NOT EXISTS Funcionario (
   FOREIGN KEY (Administrador_id_adm) REFERENCES Administrador (id_adm)
 );
 
-INSERT INTO funcionario (nome_fun, cpf_func, cargo_fun, senha_fun, Administrador_id_adm) VALUES ("Luiz", "123.123.789-23", "Atendente", "123123", 1);
-INSERT INTO funcionario (nome_fun, cpf_func, cargo_fun, senha_fun, Administrador_id_adm) VALUES ("Cristiane", "123.177.789-23", "Atendente", "123123", 2);
-INSERT INTO funcionario (nome_fun, cpf_func, cargo_fun, senha_fun, Administrador_id_adm) VALUES ("Gabriel", "123.893.789-23", "Veterinario", "123123", 1);
-INSERT INTO funcionario (nome_fun, cpf_func, cargo_fun, senha_fun, Administrador_id_adm) VALUES ("Silvia", "333.123.789-23", "Veterinario", "123123", 2);
-INSERT INTO funcionario (nome_fun, cpf_func, cargo_fun, senha_fun, Administrador_id_adm) VALUES ("Hebert", "333.443.789-23", "Tosador", "123123", 2);
+INSERT INTO funcionario (nome_fun, cpf_func, cargo_fun, senha_fun, Administrador_id_adm) VALUES ("Luiz", "123.123.789-23", "Atendente", "123456789", 1);
+INSERT INTO funcionario (nome_fun, cpf_func, cargo_fun, senha_fun, Administrador_id_adm) VALUES ("Cristiane", "123.177.789-23", "Atendente", "123456789", 2);
+INSERT INTO funcionario (nome_fun, cpf_func, cargo_fun, senha_fun, Administrador_id_adm) VALUES ("Gabriel", "123.893.789-23", "Veterinario", "123456789", 1);
+INSERT INTO funcionario (nome_fun, cpf_func, cargo_fun, senha_fun, Administrador_id_adm) VALUES ("Silvia", "333.123.789-23", "Veterinario", "123456789", 2);
+INSERT INTO funcionario (nome_fun, cpf_func, cargo_fun, senha_fun, Administrador_id_adm) VALUES ("Hebert", "333.443.789-23", "Tosador", "123456789", 2);
 
 CREATE TABLE IF NOT EXISTS Cliente (
   id_cli INT NOT NULL AUTO_INCREMENT,
@@ -42,8 +42,8 @@ CREATE TABLE IF NOT EXISTS Cliente (
   PRIMARY KEY (id_cli)
 );
 
-INSERT INTO Cliente (cpf_cli, nome_cli, tel_cli, cep_cli, estado_cli, cidade_cli, logradouro_cli, bairro) VALUES ("333.123.789-23", "Jeremias", "99999-8888", "78945-444", "PR", "Curitiba", "Corguinho", "Fim da rua");
-INSERT INTO Cliente (cpf_cli, nome_cli, tel_cli, cep_cli, estado_cli, cidade_cli, logradouro_cli, bairro) VALUES ("333.123.789-21", "Florildas", "97777-8888", "78945-444", "PR", "Curitiba", "Corguinho", "Fim da rua");
+INSERT INTO Cliente (cpf_cli, nome_cli, tel_cli, cep_cli, estado_cli, cidade_cli, logradouro_cli, bairro) VALUES ("333.123.789-23", "Jeremias", "(43) 99999-8888", "78945-444", "PR", "Curitiba", "Corguinho", "Fim da rua");
+INSERT INTO Cliente (cpf_cli, nome_cli, tel_cli, cep_cli, estado_cli, cidade_cli, logradouro_cli, bairro) VALUES ("333.123.789-21", "Florildas", "(50) 97777-8888", "78945-444", "PR", "Curitiba", "Corguinho", "Fim da rua");
 
 CREATE TABLE IF NOT EXISTS Animal (
   id_ani INT NOT NULL AUTO_INCREMENT,

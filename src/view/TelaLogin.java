@@ -88,7 +88,7 @@ public class TelaLogin extends javax.swing.JFrame {
                                     .addComponent(campoId, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
                                     .addComponent(campoSenha, javax.swing.GroupLayout.Alignment.TRAILING)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(308, 308, 308)
+                        .addGap(296, 296, 296)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(294, Short.MAX_VALUE))
         );

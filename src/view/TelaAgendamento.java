@@ -582,6 +582,7 @@ public class TelaAgendamento extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
         if(!(readJTableForData(campoDataBusca.getText()))){
+            JOptionPane.showMessageDialog(null, "Não há nenhum agendamento nesta data...");
             campoDataBusca.setText("");
             readJTable();
         }else{

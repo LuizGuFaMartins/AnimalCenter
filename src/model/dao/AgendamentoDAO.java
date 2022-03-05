@@ -95,40 +95,7 @@ public class AgendamentoDAO {
         return funcionarios;
     }
     
-    /*public List readNome(String nome){
-        Connection con = ConnectionFactory.getConnection();
-        PreparedStatement stmt = null;
-        ResultSet rs = null;        
-       
-        List<Agendamento> funcionarios = new ArrayList<>();
-        
-        try {           
-            stmt = con.prepareStatement("SELECT * FROM agendamento WHERE nome_fun LIKE ?"); 
-            stmt.setString(1, "%"+nome+"%");
-            rs = stmt.executeQuery();
-            
-            while(rs.next()){
-                Agendamento func = new Agendamento(); 
-                
-                func.setId_func(rs.getInt("id_fun"));
-                func.setNome_func(rs.getString("nome_fun"));
-                func.setCpf_func(rs.getString("cpf_func"));
-                func.setCargo_func(rs.getString("cargo_fun"));
-                func.setSenha_func(rs.getString("senha_fun"));
-                func.setId_adm(rs.getInt("Administrador_id_adm"));
-                
-                funcionarios.add(func);
-                
-            }
-        } catch (SQLException ex) {    
-            JOptionPane.showMessageDialog(null, "Algo deu errado!");
-            Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            ConnectionFactory.closeConnection(con, stmt, rs);
-        }
-        
-        return funcionarios;
-    }*/
+    
     public List readID(int id){
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
